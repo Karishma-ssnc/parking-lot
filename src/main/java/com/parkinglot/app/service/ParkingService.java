@@ -6,7 +6,9 @@ public interface ParkingService {
 
 	public String parkVehicle(VehicleDetails vehicle);
 
-	public VehicleDetails leaveVehicle(Integer slotNumber);
+	public String leaveVehicle(Integer slotNumber);
+	
+	public Double generateParkingReceipt(VehicleDetails vehicleDetails);
 
 	
 }

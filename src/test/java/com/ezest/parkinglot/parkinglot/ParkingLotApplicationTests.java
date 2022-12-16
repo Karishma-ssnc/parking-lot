@@ -1,29 +1,22 @@
 package com.ezest.parkinglot.parkinglot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.parkinglot.app.service.ParkingService;
+import com.parkinglot.app.service.ParkingServiceImpl;
+
+
 @SpringBootTest
 class ParkingLotApplicationTests {
+	private ParkingService parkingService = new ParkingServiceImpl() ;
 
-	 @BeforeAll  
-	  public static void init() {  
-	        System.out.println("Parking Lot Testing");  
-	  }  
-	  @Test  
-	  public void test() {  
-	        String expectedString = "Success";  
-			assertEquals(expectedString, "Success");  
-		    System.out.println("Success!");  
-	  } 
-	  
-	  @Test  
-	  public void testMessage() {  
-	        String expectedString = "Success";  
-			assertEquals(expectedString, "Success");  
-		    System.out.println("Test Message!");  
-	  }
+	@Test
+	public void shouldAnswerWithTrue() {
+		assertTrue(true);
+	}
 }
