@@ -14,9 +14,16 @@ class ParkingLotApplicationTests {
 	        System.out.println("Parking Lot Testing");  
 	  }  
 	  @Test  
-	  public void testBark() {  
+	  public void test() {  
 	        String expectedString = "Success";  
 			assertEquals(expectedString, "Success");  
 		    System.out.println("Success!");  
-	  }  
+	  } 
+	  
+	  @Test  
+	  public void testMessage() {  
+	        String expectedString = "Success";  
+			assertEquals(expectedString, "Success");  
+		    System.out.println("Test Message!");  
+	  }
 }
