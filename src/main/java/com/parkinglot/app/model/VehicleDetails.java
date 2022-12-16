@@ -10,7 +10,7 @@ public class VehicleDetails {
 	private  String vehicalType;
 	private String vehicalRegNo;
 	private String color;
-	private boolean parkingFlag;
+	private String parkingStatus;
 	private LocalDateTime parkedTime;
 	private String ticketNumber;
 	private Double parkingCharges;
