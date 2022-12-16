@@ -18,8 +18,8 @@ public class ParkingServiceImpl implements ParkingService{
 
 	private static Map<Integer, VehicleDetails> parkingDetailsMap = new HashMap<>();
 	private static TreeSet<Integer> availableParkingSlots = new TreeSet<>();
-	@Value("${parking.size}")
-	private Integer parkingSize;
+	//@Value("${parking.size}")
+	private Integer parkingSize = 5;
 	private Integer bikeCharges = 30;
 	private Integer busCharges = 100;
 	
@@ -35,23 +35,22 @@ public class ParkingServiceImpl implements ParkingService{
 			return "Sorry, parking slot is full";
 		}else {
 			final int emptyParking = availableParkingSlots.pollFirst();
-			System.out.println("Available Parking slots : "+emptyParking);
 			parkingDetailsMap.put(emptyParking, vehicle);
 			return "Vehicle is parked on slot "+ emptyParking;
 		}
 	}
 
-	public VehicleDetails leaveVehicle(Integer slotNumber){
+	public String leaveVehicle(Integer slotNumber){
 		for (Map.Entry<Integer, VehicleDetails> entry : parkingDetailsMap.entrySet()) {
 			if(entry.getKey() == slotNumber) {
 				VehicleDetails vehicleDetails = entry.getValue();
 				Double parkingCharges = generateParkingReceipt(vehicleDetails);
 				parkingDetailsMap.put(entry.getKey(), null);
 				availableParkingSlots.add(slotNumber);
-				return vehicleDetails;
+				return "Slot 1 is free";
 			}
 		}
-		return null;
+		return "Slot is not available";
 	}
 	
 	public Double generateParkingReceipt(VehicleDetails vehicleDetails) {
@@ -59,6 +58,7 @@ public class ParkingServiceImpl implements ParkingService{
 		Double parkingCharges = 0.0;
 		if(vehicleDetails.getVehicalType().equalsIgnoreCase("CAR") || vehicleDetails.getVehicalType().equalsIgnoreCase("BIKE")) {
 			parkingCharges = (double) (bikeCharges + (10 * totalParkedDuration.toHours()));
+			System.out.println("parkingCharges : "+parkingCharges);
 		} else if(vehicleDetails.getVehicalType().equalsIgnoreCase("BUS") || vehicleDetails.getVehicalType().equalsIgnoreCase("TRUCK")) {
 			parkingCharges = (double) (busCharges + (30 * totalParkedDuration.toHours()));
 		}
