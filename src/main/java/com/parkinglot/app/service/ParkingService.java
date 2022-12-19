@@ -8,7 +8,7 @@ public interface ParkingService {
 
 	public String leaveVehicle(Integer slotNumber);
 	
-	public Double generateParkingReceipt(VehicleDetails vehicleDetails);
+	public Double calculateParkingCharges(VehicleDetails vehicleDetails);
 
 	
 }

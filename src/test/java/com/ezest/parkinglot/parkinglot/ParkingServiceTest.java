@@ -2,9 +2,11 @@ package com.ezest.parkinglot.parkinglot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import com.parkinglot.app.model.VehicleDetails;
@@ -16,6 +18,7 @@ public class ParkingServiceTest {
 	private ParkingService parkingService = new ParkingServiceImpl() ;
 	
 	@Test
+	@Order(1)    
 	public void testParkVehicle() {
 		VehicleDetails vehicleDetails = new VehicleDetails(1,"CAR","1234","RED","Not Parked",LocalDateTime.now(),"12345");
 		String expectedValue = parkingService.parkVehicle(vehicleDetails);
@@ -23,8 +26,23 @@ public class ParkingServiceTest {
 		assertEquals(expectedValue, actualValue);
 	}
 	
+	@Test
+	@Order(2)    
+	public void testIfSlotIsNotAvailableToPark() {
+		Map<Integer, VehicleDetails> parkingDetailsMap = new HashMap<>();
+		VehicleDetails vehicleDetails = new VehicleDetails(1,"CAR","1234","BLACK","Not Parked",LocalDateTime.now(),"12345");
+		VehicleDetails vehicleDetails1 = new VehicleDetails(2,"BUS","1234","RED","Not Parked",LocalDateTime.now(),"12345");
+		parkingDetailsMap.put(1, vehicleDetails);
+		parkingDetailsMap.put(2, vehicleDetails1);
+		parkingService.parkVehicle(vehicleDetails);
+		String expectedValue = parkingService.parkVehicle(vehicleDetails1);
+		String actualValue = "Sorry, parking is full";
+		assertEquals(expectedValue, actualValue);
+	}
+	
 	
 	@Test
+	@Order(3)    
 	public void testLeaveVehicle() {
 		VehicleDetails vehicleDetails = new VehicleDetails(1,"CAR","1234","RED","Not Parked",LocalDateTime.now(),"12345");
 		parkingService.parkVehicle(vehicleDetails);
@@ -34,9 +52,10 @@ public class ParkingServiceTest {
 	}
 	
 	@Test
-	public void testParkingReceipt() {
+	@Order(4)    
+	public void testCalculateParkingCharges() {
 		VehicleDetails vehicleDetails = new VehicleDetails(1,"CAR","1234","RED","Not Parked",LocalDateTime.now(),"12345");
-		Double expectedValue = parkingService.generateParkingReceipt(vehicleDetails);
+		Double expectedValue = parkingService.calculateParkingCharges(vehicleDetails);
 		Double actualValue = 30.0;
 		assertEquals(expectedValue, actualValue);
 		
