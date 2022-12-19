@@ -19,7 +19,7 @@ public class ParkingServiceImpl implements ParkingService{
 	private static Map<Integer, VehicleDetails> parkingDetailsMap = new HashMap<>();
 	private static TreeSet<Integer> availableParkingSlots = new TreeSet<>();
 	//@Value("${parking.size}")
-	private Integer parkingSize = 5;
+	private Integer parkingSize = 2;
 	private Integer bikeCharges = 30;
 	private Integer busCharges = 100;
 	
@@ -31,8 +31,8 @@ public class ParkingServiceImpl implements ParkingService{
 			parkingDetailsMap.put(i+1, null);
 			availableParkingSlots.add(i+1);
 		}
-		if(availableParkingSlots.isEmpty()) {
-			return "Sorry, parking slot is full";
+		if(!availableParkingSlots.isEmpty()) {
+			return "Sorry, parking is full";
 		}else {
 			final int emptyParking = availableParkingSlots.pollFirst();
 			parkingDetailsMap.put(emptyParking, vehicle);
@@ -44,7 +44,8 @@ public class ParkingServiceImpl implements ParkingService{
 		for (Map.Entry<Integer, VehicleDetails> entry : parkingDetailsMap.entrySet()) {
 			if(entry.getKey() == slotNumber) {
 				VehicleDetails vehicleDetails = entry.getValue();
-				Double parkingCharges = generateParkingReceipt(vehicleDetails);
+				Double parkingCharges = calculateParkingCharges(vehicleDetails);
+				vehicleDetails.setParkingCharges(parkingCharges);
 				parkingDetailsMap.put(entry.getKey(), null);
 				availableParkingSlots.add(slotNumber);
 				return "Slot 1 is free";
@@ -53,7 +54,7 @@ public class ParkingServiceImpl implements ParkingService{
 		return "Slot is not available";
 	}
 	
-	public Double generateParkingReceipt(VehicleDetails vehicleDetails) {
+	public Double calculateParkingCharges(VehicleDetails vehicleDetails) {
 		Duration totalParkedDuration = Duration.between(LocalDateTime.now(),vehicleDetails.getParkedTime());
 		Double parkingCharges = 0.0;
 		if(vehicleDetails.getVehicalType().equalsIgnoreCase("CAR") || vehicleDetails.getVehicalType().equalsIgnoreCase("BIKE")) {
