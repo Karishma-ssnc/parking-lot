@@ -19,19 +19,20 @@ public class ParkingServiceImpl implements ParkingService{
 	private static Map<Integer, VehicleDetails> parkingDetailsMap = new HashMap<>();
 	private static TreeSet<Integer> availableParkingSlots = new TreeSet<>();
 	//@Value("${parking.size}")
-	private Integer parkingSize = 2;
+	private Integer parkingSize = 1;
 	private Integer bikeCharges = 30;
 	private Integer busCharges = 100;
 	
-	
-	@Override
-	public String parkVehicle(VehicleDetails vehicle) {
+	public void createParking() {
 		System.out.println("Parking Size : "+parkingSize);
 		for (int i = 0; i < parkingSize; i++) {
 			parkingDetailsMap.put(i+1, null);
 			availableParkingSlots.add(i+1);
 		}
-		if(!availableParkingSlots.isEmpty()) {
+	}
+	@Override
+	public String parkVehicle(VehicleDetails vehicle) {
+		if(availableParkingSlots.isEmpty()) {
 			return "Sorry, parking is full";
 		}else {
 			final int emptyParking = availableParkingSlots.pollFirst();
