@@ -21,6 +21,7 @@ public class ParkingServiceTest {
 	@Order(1)    
 	public void testParkVehicle() {
 		VehicleDetails vehicleDetails = new VehicleDetails(1,"CAR","1234","RED","Not Parked",LocalDateTime.now(),"12345");
+		parkingService.createParking();
 		String expectedValue = parkingService.parkVehicle(vehicleDetails);
 		String actualValue = "Vehicle is parked on slot 1";
 		assertEquals(expectedValue, actualValue);
@@ -32,6 +33,7 @@ public class ParkingServiceTest {
 		Map<Integer, VehicleDetails> parkingDetailsMap = new HashMap<>();
 		VehicleDetails vehicleDetails = new VehicleDetails(1,"CAR","1234","BLACK","Not Parked",LocalDateTime.now(),"12345");
 		VehicleDetails vehicleDetails1 = new VehicleDetails(2,"BUS","1234","RED","Not Parked",LocalDateTime.now(),"12345");
+		parkingService.createParking();
 		parkingDetailsMap.put(1, vehicleDetails);
 		parkingDetailsMap.put(2, vehicleDetails1);
 		parkingService.parkVehicle(vehicleDetails);
@@ -45,6 +47,7 @@ public class ParkingServiceTest {
 	@Order(3)    
 	public void testLeaveVehicle() {
 		VehicleDetails vehicleDetails = new VehicleDetails(1,"CAR","1234","RED","Not Parked",LocalDateTime.now(),"12345");
+		parkingService.createParking();
 		parkingService.parkVehicle(vehicleDetails);
 		String actualValue = "Slot 1 is free";
 		String expectedValue = parkingService.leaveVehicle(1);

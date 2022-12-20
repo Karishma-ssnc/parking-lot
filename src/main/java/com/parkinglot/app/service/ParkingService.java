@@ -10,5 +10,7 @@ public interface ParkingService {
 	
 	public Double calculateParkingCharges(VehicleDetails vehicleDetails);
 
+	public void createParking();
+
 	
 }
