@@ -26,6 +26,10 @@ public class ParkingController {
 	@Autowired
 	private ParkingService parkingService;
 		
+	@GetMapping("/parking-slots")
+	public ResponseEntity<?> getParkingSlots(@RequestBody Integer parkingSize) {
+		return new ResponseEntity<>(parkingService.createParkingSlots(parkingSize), HttpStatus.CREATED);
+	}
 	
 	@PostMapping("/park-vehicle")
 	public ResponseEntity<?> registerVehicle(@RequestBody VehicleDetails vehicle) {

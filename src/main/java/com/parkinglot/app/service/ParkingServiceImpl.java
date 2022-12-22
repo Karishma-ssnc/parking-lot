@@ -19,16 +19,17 @@ public class ParkingServiceImpl implements ParkingService{
 	private static Map<Integer, VehicleDetails> parkingDetailsMap = new HashMap<>();
 	private static TreeSet<Integer> availableParkingSlots = new TreeSet<>();
 	//@Value("${parking.size}")
-	private Integer parkingSize = 1;
+	//private Integer parkingSize = 1;
 	private Integer bikeCharges = 30;
 	private Integer busCharges = 100;
 	
-	public void createParking() {
+	public String createParkingSlots(Integer parkingSize) {
 		System.out.println("Parking Size : "+parkingSize);
 		for (int i = 0; i < parkingSize; i++) {
 			parkingDetailsMap.put(i+1, null);
 			availableParkingSlots.add(i+1);
 		}
+		return parkingSize +" Slots are created";
 	}
 	@Override
 	public String parkVehicle(VehicleDetails vehicle) {

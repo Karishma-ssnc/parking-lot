@@ -13,10 +13,5 @@ import com.parkinglot.app.service.ParkingServiceImpl;
 
 @SpringBootTest
 class ParkingLotApplicationTests {
-	private ParkingService parkingService = new ParkingServiceImpl() ;
-
-	@Test
-	public void shouldAnswerWithTrue() {
-		assertTrue(true);
-	}
+	
 }
