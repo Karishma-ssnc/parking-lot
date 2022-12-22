@@ -21,7 +21,7 @@ public class ParkingServiceTest {
 	@Order(1)    
 	public void testParkVehicle() {
 		VehicleDetails vehicleDetails = new VehicleDetails(1,"CAR","1234","RED","Not Parked",LocalDateTime.now(),"12345");
-		parkingService.createParking();
+		parkingService.createParkingSlots(1);
 		String expectedValue = parkingService.parkVehicle(vehicleDetails);
 		String actualValue = "Vehicle is parked on slot 1";
 		assertEquals(expectedValue, actualValue);
@@ -33,7 +33,7 @@ public class ParkingServiceTest {
 		Map<Integer, VehicleDetails> parkingDetailsMap = new HashMap<>();
 		VehicleDetails vehicleDetails = new VehicleDetails(1,"CAR","1234","BLACK","Not Parked",LocalDateTime.now(),"12345");
 		VehicleDetails vehicleDetails1 = new VehicleDetails(2,"BUS","1234","RED","Not Parked",LocalDateTime.now(),"12345");
-		parkingService.createParking();
+		parkingService.createParkingSlots(1);
 		parkingDetailsMap.put(1, vehicleDetails);
 		parkingDetailsMap.put(2, vehicleDetails1);
 		parkingService.parkVehicle(vehicleDetails);
@@ -45,9 +45,9 @@ public class ParkingServiceTest {
 	
 	@Test
 	@Order(3)    
-	public void testLeaveVehicle() {
+	public void testLeaveVehicleIfSlotAvailable() {
 		VehicleDetails vehicleDetails = new VehicleDetails(1,"CAR","1234","RED","Not Parked",LocalDateTime.now(),"12345");
-		parkingService.createParking();
+		parkingService.createParkingSlots(1);
 		parkingService.parkVehicle(vehicleDetails);
 		String actualValue = "Slot 1 is free";
 		String expectedValue = parkingService.leaveVehicle(1);
@@ -56,7 +56,18 @@ public class ParkingServiceTest {
 	
 	@Test
 	@Order(4)    
-	public void testCalculateParkingCharges() {
+	public void testLeaveVehicleIfSlotNotAvailable() {
+		VehicleDetails vehicleDetails = new VehicleDetails(1,"CAR","1234","RED","Not Parked",LocalDateTime.now(),"12345");
+		parkingService.createParkingSlots(1);
+		parkingService.parkVehicle(vehicleDetails);
+		String actualValue = "Slot is not available";
+		String expectedValue = parkingService.leaveVehicle(5);
+		assertEquals(expectedValue, actualValue);
+	}
+	
+	@Test
+	@Order(5)    
+	public void testCalculateParkingChargesForCar() {
 		VehicleDetails vehicleDetails = new VehicleDetails(1,"CAR","1234","RED","Not Parked",LocalDateTime.now(),"12345");
 		Double expectedValue = parkingService.calculateParkingCharges(vehicleDetails);
 		Double actualValue = 30.0;
@@ -64,6 +75,15 @@ public class ParkingServiceTest {
 		
 	}
 	
+	@Test
+	@Order(6)    
+	public void testCalculateParkingChargesForBus() {
+		VehicleDetails vehicleDetails = new VehicleDetails(1,"Bus","1234","RED","Not Parked",LocalDateTime.now(),"12345");
+		Double expectedValue = parkingService.calculateParkingCharges(vehicleDetails);
+		Double actualValue = 100.0;
+		assertEquals(expectedValue, actualValue);
+		
+	}
 	
 	
 }
