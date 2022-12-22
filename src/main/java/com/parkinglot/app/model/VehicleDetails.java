@@ -36,9 +36,10 @@ public class VehicleDetails {
 	}
 
 
-	public void setVehicalType(String vehicalType) {
-		this.vehicalType = vehicalType;
-	}
+	/*
+	 * public void setVehicalType(String vehicalType) { this.vehicalType =
+	 * vehicalType; }
+	 */
 
 
 	public LocalDateTime getParkedTime() {
@@ -46,14 +47,15 @@ public class VehicleDetails {
 	}
 
 
-	public void setParkedTime(LocalDateTime parkedTime) {
-		this.parkedTime = parkedTime;
-	}
+	/*
+	 * public void setParkedTime(LocalDateTime parkedTime) { this.parkedTime =
+	 * parkedTime; }
+	 */
 
 
-	public Double getParkingCharges() {
-		return parkingCharges;
-	}
+	/*
+	 * public Double getParkingCharges() { return parkingCharges; }
+	 */
 
 
 	public void setParkingCharges(Double parkingCharges) {
@@ -61,14 +63,13 @@ public class VehicleDetails {
 	}
 
 
-	public String getTicketNumber() {
-		return ticketNumber;
-	}
-
-
-	public void setTicketNumber(String ticketNumber) {
-		this.ticketNumber = ticketNumber;
-	}
+	/*
+	 * public String getTicketNumber() { return ticketNumber; }
+	 * 
+	 * 
+	 * public void setTicketNumber(String ticketNumber) { this.ticketNumber =
+	 * ticketNumber; }
+	 */
 	
 	
 	
