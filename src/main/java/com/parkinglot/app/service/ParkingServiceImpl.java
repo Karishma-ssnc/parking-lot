@@ -29,7 +29,7 @@ public class ParkingServiceImpl implements ParkingService{
 			parkingDetailsMap.put(i+1, null);
 			availableParkingSlots.add(i+1);
 		}
-		return parkingSize +" Slots are created";
+		return parkingSize +" Slot is created";
 	}
 	@Override
 	public String parkVehicle(VehicleDetails vehicle) {
@@ -59,10 +59,10 @@ public class ParkingServiceImpl implements ParkingService{
 	public Double calculateParkingCharges(VehicleDetails vehicleDetails) {
 		Duration totalParkedDuration = Duration.between(LocalDateTime.now(),vehicleDetails.getParkedTime());
 		Double parkingCharges = 0.0;
-		if(vehicleDetails.getVehicalType().equalsIgnoreCase("CAR") || vehicleDetails.getVehicalType().equalsIgnoreCase("BIKE")) {
+		if (vehicleDetails.getVehicalType().equalsIgnoreCase("CAR") /* || vehicleDetails.getVehicalType().equalsIgnoreCase("BIKE") */) {
 			parkingCharges = (double) (bikeCharges + (10 * totalParkedDuration.toHours()));
 			System.out.println("parkingCharges : "+parkingCharges);
-		} else if(vehicleDetails.getVehicalType().equalsIgnoreCase("BUS") || vehicleDetails.getVehicalType().equalsIgnoreCase("TRUCK")) {
+		} else if (vehicleDetails.getVehicalType().equalsIgnoreCase("BUS") /* || vehicleDetails.getVehicalType().equalsIgnoreCase("TRUCK") */) {
 			parkingCharges = (double) (busCharges + (30 * totalParkedDuration.toHours()));
 		}
 		return parkingCharges;
