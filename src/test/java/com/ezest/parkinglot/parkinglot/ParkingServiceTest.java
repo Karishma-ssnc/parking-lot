@@ -45,7 +45,7 @@ public class ParkingServiceTest {
 	
 	@Test
 	@Order(3)    
-	public void testLeaveVehicle() {
+	public void testLeaveVehicleIfSlotAvailable() {
 		VehicleDetails vehicleDetails = new VehicleDetails(1,"CAR","1234","RED","Not Parked",LocalDateTime.now(),"12345");
 		parkingService.createParkingSlots(1);
 		parkingService.parkVehicle(vehicleDetails);
@@ -56,7 +56,18 @@ public class ParkingServiceTest {
 	
 	@Test
 	@Order(4)    
-	public void testCalculateParkingCharges() {
+	public void testLeaveVehicleIfSlotNotAvailable() {
+		VehicleDetails vehicleDetails = new VehicleDetails(1,"CAR","1234","RED","Not Parked",LocalDateTime.now(),"12345");
+		parkingService.createParkingSlots(1);
+		parkingService.parkVehicle(vehicleDetails);
+		String actualValue = "Slot is not available";
+		String expectedValue = parkingService.leaveVehicle(5);
+		assertEquals(expectedValue, actualValue);
+	}
+	
+	@Test
+	@Order(5)    
+	public void testCalculateParkingChargesForCar() {
 		VehicleDetails vehicleDetails = new VehicleDetails(1,"CAR","1234","RED","Not Parked",LocalDateTime.now(),"12345");
 		Double expectedValue = parkingService.calculateParkingCharges(vehicleDetails);
 		Double actualValue = 30.0;
@@ -64,6 +75,15 @@ public class ParkingServiceTest {
 		
 	}
 	
+	@Test
+	@Order(6)    
+	public void testCalculateParkingChargesForBus() {
+		VehicleDetails vehicleDetails = new VehicleDetails(1,"Bus","1234","RED","Not Parked",LocalDateTime.now(),"12345");
+		Double expectedValue = parkingService.calculateParkingCharges(vehicleDetails);
+		Double actualValue = 100.0;
+		assertEquals(expectedValue, actualValue);
+		
+	}
 	
 	
 }
